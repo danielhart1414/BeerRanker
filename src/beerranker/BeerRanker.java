@@ -3,7 +3,7 @@
 //to a text file. The better the beer, the higher it appears on the list.
 //
 //Fixes needed: Code to catch FileNotFoundException at line 24
-//Address comment on line 45
+//Address comment on line 47
 //Develop better display
 
 package beerranker;
