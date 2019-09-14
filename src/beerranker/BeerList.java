@@ -1,7 +1,5 @@
 //@author Daniel Hart
 //A beer list to be used by BeerRanker
-//
-//Fix needed: error-catching code at line 34. Done!
 
 package beerranker;
 
@@ -9,12 +7,15 @@ import java.util.*;
 import java.io.*;
 
 public class BeerList {
-    private List<String> myBeers;
+    private List<String> myBeers;   //stores beer preferences
 
+    //Used when the user ranks for the first time
     public BeerList() {
         myBeers = new ArrayList<String>();
     }
-
+    
+    //Used to generate BeerList when the user inputs a file holding data from a
+    //previous ranking session
     public BeerList(Scanner input) {
         this();
         if (input.hasNextLine()) {
@@ -28,6 +29,8 @@ public class BeerList {
         }
     }
 
+    //Adds a beer to the list; returns whether the operation succeeded or failed.
+    //Failure occurs when the user inputs an invalid position.
     public boolean add(String beer, int position) {
         boolean success = position > 0 && position <= (myBeers.size() + 1);
         if (success) {
@@ -36,6 +39,9 @@ public class BeerList {
         return success;
     }
 
+    //Removes a beer from the list; returns whether the operation succeeded or
+    //failed. Failure occurs if the beer is not on the list and thus cannot be
+    //removed.
     public boolean remove(String beer) {
         boolean success = myBeers.contains(beer);
         if (success) {
@@ -44,6 +50,8 @@ public class BeerList {
         return success;
     }
 
+    //Returns the number 1 beer on the list; if there is no beer on the list,
+    //returns a message stating so.
     public String fav() {
         if (!myBeers.isEmpty()) {
             return myBeers.get(0) + " is your favorite beer.";
@@ -52,6 +60,7 @@ public class BeerList {
         }
     }
 
+    //Returns the list as a string
     public String toString() {
         String result;
         if (!myBeers.isEmpty()) {
@@ -67,6 +76,7 @@ public class BeerList {
         return result;
     }
 
+    //Returns the list as a string; includes rank number beside each beer
     public String numberedToString() {
         String result;
         if (!myBeers.isEmpty()) {
@@ -82,18 +92,22 @@ public class BeerList {
         return result;
     }
     
+    //Returns whether the list is empty
     public boolean isEmpty() {
         return myBeers.isEmpty();
     }
     
+    //Returns whether the list contains a given beer
     public boolean containsBeer(String beer) {
         return myBeers.contains(beer);
     }
     
+    //Returns list size
     public int size() {
         return myBeers.size();
     }
     
+    //If the position is valid, replaces a list entry with newName
     public void reviseEntry(int position, String newName) {
         if (position > 0 && position <= myBeers.size()) {
             myBeers.set(position-1, newName);

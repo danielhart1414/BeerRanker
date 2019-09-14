@@ -1,11 +1,7 @@
 //@author Daniel Hart
 //Constructs a ranked list of your favorite beers and saves them
 //to a text file. The better the beer, the higher it appears on the list.
-//
-//Fixes needed: Code to catch FileNotFoundException at line 24=====DONE
-//Address comment on line 47====DONE!
-//Develop better display
-//Line 77 option 3 needs correct functionality
+//Requires the BeerList class.
 
 package beerranker;
 
@@ -13,7 +9,7 @@ import java.util.*;
 import java.io.*;
 
 public class BeerRanker {
-    static String fileName;
+    static String fileName; //This is the name of the file the beer list is stored in.
     
     public static void main(String[] args) throws FileNotFoundException {
         Scanner console = new Scanner(System.in);
@@ -25,6 +21,7 @@ public class BeerRanker {
         storage.print(beers.toString());
     }
     
+    //Generates and returns either a BeerList from a file or a new BeerList
     private static BeerList loadList(Scanner console) throws FileNotFoundException {
         BeerList myBeers;
         String rankedBefore;
@@ -57,7 +54,8 @@ public class BeerRanker {
         }
         return myBeers;
     }
-	
+    
+    //Contains the apps five primary functions
     private static void primaryFunctions(Scanner console, BeerList beers) 
             throws FileNotFoundException {
         String choice;
@@ -67,11 +65,11 @@ public class BeerRanker {
             System.out.println();
             choice = console.nextLine();
             System.out.println();
-            if (choice.trim().equals("5")) {
+            if (choice.trim().equals("5")) { //quit the app
                 break;
             } else {
                 switch (choice.trim()) {
-                    case "1":
+                    case "1":   //add a beer to the list
                         System.out.print("What beer would you like to add? Please type the name. ");
                         String beerAddition = console.nextLine();
                         if (!beers.containsBeer(beerAddition)) {
@@ -81,7 +79,7 @@ public class BeerRanker {
                             System.out.println(beerAddition + " is already on your list.");
                         }
                         break;
-                    case "2":
+                    case "2":   //remove a beer from the list
                         System.out.print("What beer would you like to remove? Type the name of the beer. ");
                         if (beers.remove(console.nextLine())) {
                             System.out.println("Beer removed!");
@@ -89,7 +87,7 @@ public class BeerRanker {
                             System.out.println("That's not on the list, kiddo.");
                         }
                         break;
-                    case "3":
+                    case "3":   //revise a beer that is on the list
                         System.out.println("Which beer name would you like to edit?");
                         System.out.print("Please type the number that is beside the name. ");
                         try {
@@ -107,16 +105,17 @@ public class BeerRanker {
                             System.out.println("Please type one of the numbers on your list.");
                         }
                         break;
-                    case "4":
+                    case "4":   //print favorite beer
                         System.out.println(beers.fav());
                         break;
-                    default:
+                    default:    //error message for invalid input
                         System.out.println("The numbers are near the top of the keyboard.");
                 }
             }
         }
     }
     
+    //Displays the BeerList for the user
     private static void showBeerList(BeerList beers) {
         if (!beers.isEmpty()) {
             System.out.println();
@@ -126,6 +125,7 @@ public class BeerRanker {
         System.out.println(beers.numberedToString());
     }
     
+    //Prints out the main app menu
     private static void showMenu() {
         System.out.println();
         System.out.println("What would you like to do? (type the appropriate number)");
@@ -136,6 +136,7 @@ public class BeerRanker {
         System.out.println("5. Quit the program");
     }
     
+    //Adds a beer to the BeerList
     private static void addBeer(Scanner console, String beerName, BeerList beers) {
         int position;
         for (;;) {   
@@ -144,6 +145,7 @@ public class BeerRanker {
                 System.out.print("Please type the position number. ");
                 position = console.nextInt();
                 if (beers.add(beerName, position)) {
+                    console.nextLine();
                     break;
                 } else {
                     System.out.println("Please type a number that is already on your list"
