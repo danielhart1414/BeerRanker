@@ -9,23 +9,23 @@ import java.util.*;
 import java.io.*;
 
 public class BeerList {
-    private List<String> beerList;
+    private List<String> myBeers;
 
     public BeerList() {
-        beerList = new ArrayList<String>();
+        myBeers = new ArrayList<String>();
     }
 
     public BeerList(Scanner input) {
         this();
         while (input.hasNextLine()) {
-            beerList.add(input.nextLine());
+            myBeers.add(input.nextLine());
         }
     }
 
-    public void addBeer(String beer) {
-        if (beerList.contains(beer)) {
+    public void add(String beer) {
+        if (myBeers.contains(beer)) {
             System.out.println("It's already on the list.");
-        } else if (!beerList.isEmpty()) {
+        } else if (!myBeers.isEmpty()) {
             Scanner console = new Scanner(System.in);
             int n = 0;
             for (;;) {
@@ -34,10 +34,10 @@ public class BeerList {
                 n = console.nextInt(); //A non-integer makes the program crash
                 //Add code to handle the exception
                 if (n == 0) {
-                    beerList.add(beer);
+                    myBeers.add(beer);
                     break;
-                } else if (n > 0 && n <= beerList.size()) {
-                    beerList.add(n-1, beer);
+                } else if (n > 0 && n <= myBeers.size()) {
+                    myBeers.add(n-1, beer);
                     break;
                 } else {
                     System.out.println("Does not compute.");
@@ -45,30 +45,30 @@ public class BeerList {
                 System.out.println("I'd like an integer please.");
             }
         } else {
-            beerList.add(beer);
+            myBeers.add(beer);
         }
     }
 
-    public void removeBeer(String beer) {
-            if (beerList.contains(beer)) {
-                    beerList.remove(beer);
+    public void remove(String beer) {
+            if (myBeers.contains(beer)) {
+                    myBeers.remove(beer);
             } else {
                     System.out.println("It's not on here, kiddo");
             }
     }
 
     public String fav() {
-            if (!beerList.isEmpty()) {
-                    return beerList.get(0);
+            if (!myBeers.isEmpty()) {
+                    return myBeers.get(0);
             } else {
                     return "You don't have any beer, laddy!";
             }
     }
 
     public void write(PrintStream output) {
-            if (beerList.size() != 0) {
-                    for (int i = 0; i < beerList.size(); i++) {
-                            output.println(beerList.get(i));
+            if (myBeers.size() != 0) {
+                    for (int i = 0; i < myBeers.size(); i++) {
+                            output.println(myBeers.get(i));
                     }
             } else {
                     output.println("You have no beer :(");
@@ -76,9 +76,9 @@ public class BeerList {
     }
 
     public void print() {
-            if (beerList.size() != 0) {
-                    for (int i = 0; i < beerList.size(); i++) {
-                            System.out.println((i + 1) + ". " + beerList.get(i));
+            if (myBeers.size() != 0) {
+                    for (int i = 0; i < myBeers.size(); i++) {
+                            System.out.println((i + 1) + ". " + myBeers.get(i));
                     }
             } else {
                     System.out.println("You have no beer :(");
