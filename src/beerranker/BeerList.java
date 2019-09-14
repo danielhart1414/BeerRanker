@@ -28,31 +28,12 @@ public class BeerList {
         }
     }
 
-    public void add(String beer) {
-        if (myBeers.contains(beer)) {
-            System.out.println("It's already on the list.");
-        } else if (!myBeers.isEmpty()) {
-            Scanner console = new Scanner(System.in);
-            int n;
-            for (;;) {
-                System.out.println("Please type the number of the beer it's better than");
-                System.out.print("(\"0\" if it's the worst). ");
-                n = console.nextInt(); //A non-integer makes the program crash
-                //Add code to handle the exception
-                if (n == 0) {
-                    myBeers.add(beer);
-                    break;
-                } else if (n > 0 && n <= myBeers.size()) {
-                    myBeers.add(n-1, beer);
-                    break;
-                } else {
-                    System.out.println("Does not compute.");
-                }
-                System.out.println("I'd like an integer please.");
-            }
-        } else {
-            myBeers.add(beer);
+    public boolean add(String beer, int position) {
+        boolean success = position > 0 && position <= (myBeers.size() + 1);
+        if (success) {
+            myBeers.add(position-1, beer);
         }
+        return success;
     }
 
     public boolean remove(String beer) {
@@ -94,5 +75,9 @@ public class BeerList {
     
     public boolean isEmpty() {
         return myBeers.isEmpty();
+    }
+    
+    public boolean containsBeer(String beer) {
+        return myBeers.contains(beer);
     }
 }

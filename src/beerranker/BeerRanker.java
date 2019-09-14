@@ -70,10 +70,18 @@ public class BeerRanker {
             System.out.println();
             if (choice.trim().equals("1")) {
                 System.out.print("What beer would you like to add? Please type the name. ");
-                beers.add(console.nextLine());
+                String beerAddition = console.nextLine();
+                if (!beers.containsBeer(beerAddition)) {
+                    addBeer(console, beerAddition, beers);
+                    System.out.println("Beer added!");
+                } else {
+                    System.out.println(beerAddition + " is already on your list.");
+                }
             } else if (choice.trim().equals("2")) {
                 System.out.print("What beer would you like to remove? Type the name of the beer. ");
-                if (!beers.remove(console.nextLine())) {
+                if (beers.remove(console.nextLine())) {
+                    System.out.println("Beer removed!");
+                } else {
                     System.out.println("That's not on the list, kiddo.");
                 }
             }	else if (choice.trim().equals("3")) {
@@ -103,5 +111,25 @@ public class BeerRanker {
         System.out.println("3. Edit a beer name");
         System.out.println("4. Show your favorite beer");
         System.out.println("5. Quit the program");
+    }
+    
+    private static void addBeer(Scanner console, String beerName, BeerList beers) {
+        int position;
+        for (;;) {   
+            try {
+                System.out.println("Where on your list would you like the beer to appear?");
+                System.out.print("Please type the position number. ");
+                position = console.nextInt();
+                if (beers.add(beerName, position)) {
+                    break;
+                } else {
+                    System.out.println("Please type a number that is already on your list"
+                            + " or one more than the last item on your list.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("I'd like an integer please.");
+                console.nextLine();
+            }
+        }
     }
 }
