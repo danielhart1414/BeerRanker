@@ -2,8 +2,8 @@
 //Constructs a ranked list of your favorite beers and saves them
 //to a text file. The better the beer, the higher it appears on the list.
 //
-//Fixes needed: Code to catch FileNotFoundException at line 24
-//Address comment on line 47
+//Fixes needed: Code to catch FileNotFoundException at line 24=====DONE
+//Address comment on line 47====DONE!
 //Develop better display
 
 package beerranker;
@@ -19,16 +19,16 @@ public class BeerRanker {
         System.out.println("Welcome to Beer Ranker!");
         System.out.println();
         BeerList beers = loadList(console);
-        solve(console, beers);
+        primaryFunctions(console, beers);
     }
     
     private static BeerList loadList(Scanner console) throws FileNotFoundException {
         BeerList myBeers;
-        String s;
+        String rankedBefore;
         for (;;) {
             System.out.print("Have you ranked beers before? (Answer \"y\" or \"n\") ");
-            s = console.nextLine();
-            if (s.trim().toLowerCase().equals("y")) {
+            rankedBefore = console.nextLine();
+            if (rankedBefore.trim().toLowerCase().equals("y")) {
                 Scanner input;
                 for(;;) {
                     System.out.print("What file holds the beer that you've ranked? ");
@@ -42,7 +42,7 @@ public class BeerRanker {
                 }
                 myBeers = new BeerList(input);
                 break;
-            } else if (s.trim().toLowerCase().equals("n")) {
+            } else if (rankedBefore.trim().toLowerCase().equals("n")) {
                 System.out.print("What text file would you like to store your new beer list to? ");
                 fileName = console.nextLine();
                 myBeers = new BeerList();
@@ -55,36 +55,47 @@ public class BeerRanker {
         return myBeers;
     }
 	
-    private static void solve(Scanner console, BeerList beers) 
+    private static void primaryFunctions(Scanner console, BeerList beers) 
             throws FileNotFoundException {
+        String choice;
         for (;;) {
+            if (!beers.isEmpty()) {
+                showBeerList(beers);
+            }
+            showMenu();
             System.out.println();
-            System.out.println("Here are your beers:"); //This should only print when a beer list exists
+            choice = console.nextLine();
             System.out.println();
-            beers.print();
-            System.out.println();
-            System.out.println("What would you like to do? (type the appropriate number)");
-            System.out.println("1. Add a beer");
-            System.out.println("2. Remove a beer");
-            System.out.println("3. Get your favorite beer");
-            System.out.println("4. Quit the program");
-            System.out.println();
-            String s = console.nextLine();
-            System.out.println();
-            if (s.equals("1")) {
+            if (choice.trim().equals("1")) {
                 System.out.print("What beer would you like to add? ");
                 beers.add(console.nextLine());
-            } else if (s.equals("2")) {
+            } else if (choice.trim().equals("2")) {
                 System.out.print("What beer would you like to remove? (Type the name of the beer) ");
                 beers.remove(console.nextLine());
-            }	else if (s.equals("3")) {
+            }	else if (choice.trim().equals("3")) {
                 System.out.println(beers.fav());
-            } else if (s.equals("4")) {
+            } else if (choice.trim().equals("4")) {
                 break;
             } else {
                 System.out.println("The numbers are near the top of the keyboard");
             }
         }
         beers.write(new PrintStream(new File(fileName)));
+    }
+    
+    private static void showBeerList(BeerList beers) {
+        System.out.println();
+        System.out.println("Here are your beers:");
+        System.out.println();
+        beers.print();
+    }
+    
+    private static void showMenu() {
+        System.out.println();
+        System.out.println("What would you like to do? (type the appropriate number)");
+        System.out.println("1. Add a beer");
+        System.out.println("2. Remove a beer");
+        System.out.println("3. Get your favorite beer");
+        System.out.println("4. Quit the program");
     }
 }
