@@ -1,7 +1,7 @@
 //@author Daniel Hart
 //A beer list to be used by BeerRanker
 //
-//Fix needed: error-catching code at line 34.
+//Fix needed: error-catching code at line 34. Done!
 
 package beerranker;
 

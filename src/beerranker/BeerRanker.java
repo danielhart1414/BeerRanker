@@ -68,30 +68,37 @@ public class BeerRanker {
             System.out.println();
             choice = console.nextLine();
             System.out.println();
-            if (choice.trim().equals("1")) {
-                System.out.print("What beer would you like to add? Please type the name. ");
-                String beerAddition = console.nextLine();
-                if (!beers.containsBeer(beerAddition)) {
-                    addBeer(console, beerAddition, beers);
-                    System.out.println("Beer added!");
-                } else {
-                    System.out.println(beerAddition + " is already on your list.");
-                }
-            } else if (choice.trim().equals("2")) {
-                System.out.print("What beer would you like to remove? Type the name of the beer. ");
-                if (beers.remove(console.nextLine())) {
-                    System.out.println("Beer removed!");
-                } else {
-                    System.out.println("That's not on the list, kiddo.");
-                }
-            }	else if (choice.trim().equals("3")) {
-                System.out.println(beers.fav()); //This is not correct
-            }	else if (choice.trim().equals("4")) {
-                System.out.println(beers.fav());
-            } else if (choice.trim().equals("5")) {
+            if (choice.trim().equals("5")) {
                 break;
             } else {
-                System.out.println("The numbers are near the top of the keyboard");
+                switch (choice.trim()) {
+                    case "1":
+                        System.out.print("What beer would you like to add? Please type the name. ");
+                        String beerAddition = console.nextLine();
+                        if (!beers.containsBeer(beerAddition)) {
+                            addBeer(console, beerAddition, beers);
+                            System.out.println("Beer added!");
+                        } else {
+                            System.out.println(beerAddition + " is already on your list.");
+                        }
+                        break;
+                    case "2":
+                        System.out.print("What beer would you like to remove? Type the name of the beer. ");
+                        if (beers.remove(console.nextLine())) {
+                            System.out.println("Beer removed!");
+                        } else {
+                            System.out.println("That's not on the list, kiddo.");
+                        }
+                        break;
+                    case "3":
+                        System.out.println(beers.fav()); //This is not correct
+                        break;
+                    case "4":
+                        System.out.println(beers.fav());
+                        break;
+                    default:
+                        System.out.println("The numbers are near the top of the keyboard");
+                }
             }
         }
     }
