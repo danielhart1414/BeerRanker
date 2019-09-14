@@ -89,4 +89,14 @@ public class BeerList {
     public boolean containsBeer(String beer) {
         return myBeers.contains(beer);
     }
+    
+    public int size() {
+        return myBeers.size();
+    }
+    
+    public void reviseEntry(int position, String newName) {
+        if (position > 0 && position <= myBeers.size()) {
+            myBeers.set(position-1, newName);
+        }
+    }
 }

@@ -90,13 +90,28 @@ public class BeerRanker {
                         }
                         break;
                     case "3":
-                        System.out.println(beers.fav()); //This is not correct
+                        System.out.println("Which beer name would you like to edit?");
+                        System.out.print("Please type the number that is beside the name. ");
+                        try {
+                            int position = console.nextInt();
+                            if (position > 0 && position <= beers.size()) {
+                                console.nextLine();
+                                System.out.println();
+                                System.out.println("What would you like to call that beer?");
+                                beers.reviseEntry(position, console.nextLine());
+                            } else {
+                                throw new InputMismatchException("Value out of range");
+                            }
+                        } catch(InputMismatchException e) {
+                            console.nextLine();
+                            System.out.println("Please type one of the numbers on your list.");
+                        }
                         break;
                     case "4":
                         System.out.println(beers.fav());
                         break;
                     default:
-                        System.out.println("The numbers are near the top of the keyboard");
+                        System.out.println("The numbers are near the top of the keyboard.");
                 }
             }
         }
