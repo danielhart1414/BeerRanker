@@ -55,12 +55,12 @@ public class BeerList {
         }
     }
 
-    public void remove(String beer) {
-        if (myBeers.contains(beer)) {
+    public boolean remove(String beer) {
+        boolean success = myBeers.contains(beer);
+        if (success) {
             myBeers.remove(beer);
-        } else {
-            System.out.println("That's not on the list, kiddo.");
-        }
+        }  
+        return success;
     }
 
     public String fav() {

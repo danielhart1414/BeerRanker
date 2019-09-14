@@ -5,6 +5,7 @@
 //Fixes needed: Code to catch FileNotFoundException at line 24=====DONE
 //Address comment on line 47====DONE!
 //Develop better display
+//Line 77 option 3 needs correct functionality
 
 package beerranker;
 
@@ -20,6 +21,7 @@ public class BeerRanker {
         System.out.println();
         BeerList beers = loadList(console);
         primaryFunctions(console, beers);
+        beers.write(new PrintStream(new File(fileName)));
     }
     
     private static BeerList loadList(Scanner console) throws FileNotFoundException {
@@ -67,20 +69,23 @@ public class BeerRanker {
             choice = console.nextLine();
             System.out.println();
             if (choice.trim().equals("1")) {
-                System.out.print("What beer would you like to add? ");
+                System.out.print("What beer would you like to add? Please type the name. ");
                 beers.add(console.nextLine());
             } else if (choice.trim().equals("2")) {
-                System.out.print("What beer would you like to remove? (Type the name of the beer) ");
-                beers.remove(console.nextLine());
+                System.out.print("What beer would you like to remove? Type the name of the beer. ");
+                if (!beers.remove(console.nextLine())) {
+                    System.out.println("That's not on the list, kiddo.");
+                }
             }	else if (choice.trim().equals("3")) {
+                System.out.println(beers.fav()); //This is not correct
+            }	else if (choice.trim().equals("4")) {
                 System.out.println(beers.fav());
-            } else if (choice.trim().equals("4")) {
+            } else if (choice.trim().equals("5")) {
                 break;
             } else {
                 System.out.println("The numbers are near the top of the keyboard");
             }
         }
-        beers.write(new PrintStream(new File(fileName)));
     }
     
     private static void showBeerList(BeerList beers) {
@@ -95,7 +100,8 @@ public class BeerRanker {
         System.out.println("What would you like to do? (type the appropriate number)");
         System.out.println("1. Add a beer");
         System.out.println("2. Remove a beer");
-        System.out.println("3. Get your favorite beer");
-        System.out.println("4. Quit the program");
+        System.out.println("3. Edit a beer name");
+        System.out.println("4. Show your favorite beer");
+        System.out.println("5. Quit the program");
     }
 }
