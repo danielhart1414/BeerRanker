@@ -21,7 +21,8 @@ public class BeerRanker {
         System.out.println();
         BeerList beers = loadList(console);
         primaryFunctions(console, beers);
-        beers.write(new PrintStream(new File(fileName)));
+        PrintStream storage = new PrintStream(new File(fileName));
+        storage.print(beers.toString());
     }
     
     private static BeerList loadList(Scanner console) throws FileNotFoundException {
@@ -61,9 +62,7 @@ public class BeerRanker {
             throws FileNotFoundException {
         String choice;
         for (;;) {
-            if (!beers.isEmpty()) {
-                showBeerList(beers);
-            }
+            showBeerList(beers);
             showMenu();
             System.out.println();
             choice = console.nextLine();
@@ -104,10 +103,12 @@ public class BeerRanker {
     }
     
     private static void showBeerList(BeerList beers) {
+        if (!beers.isEmpty()) {
+            System.out.println();
+            System.out.println("Here are your beers:");
+        }
         System.out.println();
-        System.out.println("Here are your beers:");
-        System.out.println();
-        beers.print();
+        System.out.println(beers.numberedToString());
     }
     
     private static void showMenu() {

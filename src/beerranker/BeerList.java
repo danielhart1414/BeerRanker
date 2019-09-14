@@ -19,7 +19,7 @@ public class BeerList {
         this();
         if (input.hasNextLine()) {
             String firstBeer = input.nextLine();
-            if (!firstBeer.equals("You have no beer :(")) {
+            if (!firstBeer.equals("You've ranked no beer :(")) {
                 myBeers.add(firstBeer);
                 while (input.hasNextLine()) {
                     myBeers.add(input.nextLine());
@@ -52,25 +52,34 @@ public class BeerList {
         }
     }
 
-    public void write(PrintStream output) {
-        if (myBeers.size() != 0) {
-            for (int i = 0; i < myBeers.size(); i++) {
-                output.println(myBeers.get(i));
+    public String toString() {
+        String result;
+        if (!myBeers.isEmpty()) {
+            result = myBeers.get(0);
+            if (myBeers.size() > 1) {
+                for (int i = 1; i < myBeers.size(); i++) {
+                    result += System.lineSeparator() + myBeers.get(i);
+                }
             }
         } else {
-            output.println("You have no beer :(");
+            result = "You've ranked no beer :(";
         }
+        return result;
     }
 
-    public void print() {
-        if (myBeers.size() != 0) {
-            for (int i = 0; i < myBeers.size(); i++) {
-                System.out.println((i + 1) + ". " + myBeers.get(i));
+    public String numberedToString() {
+        String result;
+        if (!myBeers.isEmpty()) {
+            result = "1. " + myBeers.get(0);
+            if (myBeers.size() > 1) {
+                for (int i = 1; i < myBeers.size(); i++) {
+                    result += System.lineSeparator() + (i + 1) + ". " + myBeers.get(i);
+                }
             }
         } else {
-            System.out.println("You have no beer :("); //Remove code on line 64 primaryFunctions
-            //and revise showBeerList for when it's empty.
+            result = "You've ranked no beer :(";
         }
+        return result;
     }
     
     public boolean isEmpty() {
